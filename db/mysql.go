@@ -48,12 +48,31 @@ func (db *MysqlDb) Query(sql string) ([]map[string][]byte, error) {
 	return db.connection.Query(sql)
 }
 
-func (db *MysqlDb) Execute(sql string) (sql.Result, error) {
-	return db.connection.Exec(sql)
+func (db *MysqlDb) QueryOne(sql string) (map[string][]byte, error) {
+	items, err := db.connection.Query(sql)
+	return items[0], err
 }
 
-func (db *MysqlDb) Count(sql string) (int64, error) {
-	return db.connection.Count(sql)
+func (db *MysqlDb) QueryString(sql string) ([]map[string]string, error) {
+	return db.connection.QueryString(sql)
+}
+
+func (db *MysqlDb) QueryStringOne(sql string) (map[string]string, error) {
+	items, err := db.connection.QueryString(sql)
+	return items[0], err
+}
+
+func (db *MysqlDb) QueryInterface(sql string) ([]map[string]interface{}, error) {
+	return db.connection.QueryInterface(sql)
+}
+
+func (db *MysqlDb) QueryInterfaceOne(sql string) (map[string]interface{}, error) {
+	items, err := db.connection.QueryInterface(sql)
+	return items[0], err
+}
+
+func (db *MysqlDb) Execute(sql string) (sql.Result, error) {
+	return db.connection.Exec(sql)
 }
 
 func (db *MysqlDb) Close() {
